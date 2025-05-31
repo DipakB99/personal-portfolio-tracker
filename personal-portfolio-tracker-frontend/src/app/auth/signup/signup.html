@@ -1,47 +1,68 @@
-<div class="p-fluid p-formgrid p-grid">
-  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-    <div class="p-field p-col-12 p-md-6">
-      <label for="firstName">First Name</label>
-      <input id="firstName" pInputText formControlName="firstName" />
-    </div>
+<div class="signup-wrapper">
+  <div class="signup-card">
+    <h2 class="signup-title">Create Account</h2>
 
-    <div class="p-field p-col-12 p-md-6">
-      <label for="lastName">Last Name</label>
-      <input id="lastName" pInputText formControlName="lastName" />
-    </div>
+    <form
+      [formGroup]="signupForm"
+      (ngSubmit)="onSubmit()"
+      enctype="multipart/form-data"
+      class="p-fluid p-formgrid p-grid"
+    >
+      <div class="m-top p-field p-col-12 p-md-6">
+        <label for="firstName">First Name</label>
+        <input id="firstName" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('firstName')?.touched && signupForm.get('firstName')?.invalid }"
+        pInputText formControlName="firstName" />
+      </div>
 
-    <div class="p-field p-col-12">
-      <label for="email">Email</label>
-      <input id="email" pInputText formControlName="email" />
-    </div>
+      <div class="m-top p-field p-col-12 p-md-6">
+        <label for="lastName">Last Name</label>
+        <input id="lastName" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('lastName')?.touched && signupForm.get('lastName')?.invalid }" pInputText formControlName="lastName" />
+      </div>
 
-    <div class="p-field p-col-12">
-      <label for="password">Password</label>
-      <input id="password" type="password" pInputText formControlName="password" />
-    </div>
+      <div class="m-top p-field p-col-12">
+        <label for="email">Email</label>
+        <input id="email" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('email')?.touched && signupForm.get('email')?.invalid }" pInputText formControlName="email" />
+      </div>
 
-    <div class="p-field p-col-12">
-      <label for="mobile">Mobile</label>
-      <input id="mobile" pInputText formControlName="mobile" />
-    </div>
+      <div class="m-top p-field p-col-12">
+        <label for="password">Password</label>
+        <input id="password" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('password')?.touched && signupForm.get('password')?.invalid }" type="password" pInputText formControlName="password" />
+      </div>
 
-    <div class="p-field p-col-12">
-      <label for="dob">Date of Birth</label>
-      <p-datePicker
-        id="dob"
-        formControlName="dob"
-        dateFormat="yy-mm-dd"
-        [maxDate]="maxDate"
-      ></p-datePicker>
-    </div>
+      <div class="m-top p-field p-col-12">
+        <label for="mobile">Mobile</label>
+        <input id="mobile" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('mobile')?.touched && signupForm.get('mobile')?.invalid }" pInputText formControlName="mobile" />
+      </div>
 
-    <div class="p-field p-col-12">
-      <label for="profileImage">Profile Image</label>
-      <input type="file" (change)="onFileChange($event)" />
-    </div>
+      <div class="m-top p-field p-col-12">
+        <label for="dob">Date of Birth</label> &nbsp;
+        <p-datePicker
+          [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('dob')?.touched && signupForm.get('dob')?.invalid }"
+          id="dob"
+          formControlName="dob"
+          dateFormat="yy-mm-dd"
+          [maxDate]="maxDate"
+        ></p-datePicker>  &nbsp;
+        <span>*(18 yo or above)</span>
 
-    <div class="p-field p-col-12">
-      <button type="submit" pButton label="Sign Up" [disabled]="signupForm.invalid"></button>
-    </div>
-  </form>
+      </div>
+
+      <div class="m-top p-field p-col-12">
+        <label for="profileImage">Profile Image</label>
+        <input type="file" id="profileImage" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('file')?.touched && signupForm.get('file')?.invalid }" (change)="onFileChange($event)" />
+      </div>
+
+      <div class="m-top p-field p-col-12">
+        <button
+          type="submit"
+          pButton
+          label="Sign Up"
+          class="p-button-rounded"
+          [disabled]="signupForm.invalid"
+        ></button>
+      </div>
+    </form>
+  </div>
 </div>
+
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" />

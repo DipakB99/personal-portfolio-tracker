@@ -8,6 +8,9 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { ChartsModule } from '@progress/kendo-angular-charts';
 import { FormsModule } from '@angular/forms';
+import { MenubarModule } from 'primeng/menubar';
+import { AvatarModule } from 'primeng/avatar';
+import { MenuItem } from 'primeng/api';
 
 interface PortfolioPoint {
   date: string;
@@ -17,7 +20,10 @@ interface PortfolioPoint {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CardModule, CommonModule, ButtonModule, HttpClientModule, DialogModule, DropdownModule, ChartsModule, FormsModule ],
+  imports: [CardModule, CommonModule, ButtonModule, HttpClientModule, DialogModule, DropdownModule, ChartsModule, FormsModule,
+    MenubarModule,
+    AvatarModule,
+   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })
@@ -30,6 +36,10 @@ export class Dashboard implements OnInit {
   tenures = ['Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'];
   categoryDates: string[] = [];
   portfolioValues: number[] = [];
+  menuItems: MenuItem[] = [
+    { label: 'Dashboard', icon: 'pi pi-home', routerLink: ['/dashboard'] },
+    { label: 'Settings', icon: 'pi pi-cog', routerLink: ['/settings'] }
+  ];
 
   constructor(private router: Router, private http: HttpClient) {}
 

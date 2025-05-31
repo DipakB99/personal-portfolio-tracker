@@ -110,12 +110,22 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Protected route example
-router.get('/dashboard', verifyToken, (req, res) => {
-  res.status(200).json({
-    message: 'Welcome to your dashboard!',
-    user: req.user
-  });
+router.get('/dashboard', verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select('-password'); // exclude password
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({
+      message: 'Welcome to your dashboard!',
+      user,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching user data', error });
+  }
 });
+
 
 module.exports = router;

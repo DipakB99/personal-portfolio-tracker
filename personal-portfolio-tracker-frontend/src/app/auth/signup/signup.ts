@@ -7,6 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { CommonModule } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-signup',
@@ -14,17 +18,20 @@ import { ButtonModule } from 'primeng/button';
     HttpClientModule,
     InputTextModule,
     ButtonModule,
-    DatePickerModule
+    DatePickerModule,
+    CommonModule, ToastModule
  ],
   templateUrl: './signup.html',
-  styleUrl: './signup.scss'
+  styleUrl: './signup.scss',
+  providers: [MessageService],
+
 })
 export class Signup {
   signupForm: FormGroup;
   maxDate: Date;
   selectedFile: File | null = null;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private messageService: MessageService) {
     this.maxDate = new Date();
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 18); // User must be at least 18
 
@@ -44,13 +51,13 @@ export class Signup {
       this.selectedFile = file;
     } else {
       this.selectedFile = null;
-      alert('Only image files are allowed.');
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Only image files are allowed.' });
     }
   }
 
   onSubmit() {
     // if (!this.signupForm.valid || !this.selectedFile) {
-    //   alert('Form is invalid or no image selected.');
+    // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Form is invalid or no image selected.' });
     //   return;
     // }
 
@@ -62,13 +69,20 @@ export class Signup {
 
     this.http.post('http://localhost:5000/api/signup', formData).subscribe({
       next: (res) => {
-        alert('Signup successful!');
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Signup successful!' });
         this.signupForm.reset();
       },
       error: (err) => {
-        alert('Signup failed. See console.');
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Signup failed. See console.' });
         console.error(err);
       },
     });
   }
+
+  isInvalid(controlName: string): boolean {
+  const control = this.signupForm.get(controlName);
+  return !!(control && (control.touched || control.dirty) && control.invalid);
+}
+
+
 }

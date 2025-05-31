@@ -4,12 +4,15 @@ import { ButtonModule } from 'primeng/button';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-login',
-  imports: [InputTextModule, ButtonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [ToastModule, InputTextModule, ButtonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './login.html',
-  styleUrl: './login.scss'
+  styleUrl: './login.scss',
+  providers: [MessageService],
 })
 export class Login  {
   loginForm: FormGroup;
@@ -17,7 +20,8 @@ export class Login  {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router, 
+    private messageService: MessageService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -31,11 +35,11 @@ export class Login  {
     this.http.post<any>('http://localhost:5000/api/login', this.loginForm.value).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
-        alert('Login successful!');
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successful.' });
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        alert('Login failed. Please check your credentials.');
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Login failed. Please check your credentials.' });
         console.error(err);
       },
     });

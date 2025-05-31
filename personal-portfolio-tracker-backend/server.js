@@ -2,6 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const fs = require('fs');
+const path = require('path');
+
+const uploadsDir = path.join(__dirname, 'uploads');
+
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
 
 dotenv.config();
 
@@ -36,3 +44,5 @@ app.use('/api', authRoutes);
 
 const chartRoutes = require('./routes/chartRoutes');
 app.use('/api/chart', chartRoutes);
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

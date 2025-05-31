@@ -1,18 +1,22 @@
-<div class="p-fluid p-formgrid p-grid">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="p-field p-col-12">
-      <label for="email">Email</label>
-      <input id="email" pInputText formControlName="email" />
-    </div>
+<div class="login-wrapper">
+  <div class="login-card">
+    <h2 class="login-title">Login</h2>
 
-    <div class="p-field p-col-12">
-      <label for="password">Password</label>
-      <input id="password" type="password" pInputText formControlName="password" />
-    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12" style="margin-top: 1rem;">
+        <label for="email">Email</label>
+        <input id="email" pInputText formControlName="email" placeholder="Enter your email" />
+      </div>
 
-    <div class="p-field p-col-12">
-      <button type="submit" pButton label="Login" [disabled]="loginForm.invalid"></button>
-    </div>
-  </form>
+      <div class="p-field p-col-12" style="margin-top: 1rem;">
+        <label for="password">Password</label>
+        <input id="password" type="password" pInputText formControlName="password" placeholder="Enter your password" />
+      </div>
+
+      <div class="p-field p-col-12">
+        <button type="submit" pButton label="Login" class="p-button-rounded" [disabled]="loginForm.invalid"></button>
+      </div>
+    </form>
+  </div>
 </div>
-
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" />
