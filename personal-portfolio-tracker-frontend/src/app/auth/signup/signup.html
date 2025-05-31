@@ -1,0 +1,47 @@
+<div class="p-fluid p-formgrid p-grid">
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <div class="p-field p-col-12 p-md-6">
+      <label for="firstName">First Name</label>
+      <input id="firstName" pInputText formControlName="firstName" />
+    </div>
+
+    <div class="p-field p-col-12 p-md-6">
+      <label for="lastName">Last Name</label>
+      <input id="lastName" pInputText formControlName="lastName" />
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="email">Email</label>
+      <input id="email" pInputText formControlName="email" />
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="password">Password</label>
+      <input id="password" type="password" pInputText formControlName="password" />
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="mobile">Mobile</label>
+      <input id="mobile" pInputText formControlName="mobile" />
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="dob">Date of Birth</label>
+      <p-datePicker
+        id="dob"
+        formControlName="dob"
+        dateFormat="yy-mm-dd"
+        [maxDate]="maxDate"
+      ></p-datePicker>
+    </div>
+
+    <div class="p-field p-col-12">
+      <label for="profileImage">Profile Image</label>
+      <input type="file" (change)="onFileChange($event)" />
+    </div>
+
+    <div class="p-field p-col-12">
+      <button type="submit" pButton label="Sign Up" [disabled]="signupForm.invalid"></button>
+    </div>
+  </form>
+</div>

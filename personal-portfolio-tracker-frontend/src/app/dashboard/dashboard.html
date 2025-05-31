@@ -1,0 +1,44 @@
+<!-- Header Section -->
+<div class="p-d-flex p-ai-center p-jc-between p-p-3 p-shadow-3" style="background:#f0f0f0;">
+  <div class="p-d-flex p-ai-center">
+    <img [src]="'http://localhost:5000/uploads/' + user?.profileImage" width="50" height="50" class="p-mr-2" style="border-radius: 50%;" />
+    <div>
+      <h3>{{ user?.firstname }}</h3>
+      <small>{{ user?.lastname }}</small>
+    </div>
+  </div>
+  <div>
+    <button pButton label="View Portfolio" class="p-button-info p-mr-2" (click)="showPortfolio = true"></button>
+    <button pButton label="Logout" class="p-button-danger" (click)="logout()"></button>
+  </div>
+</div>
+
+<!-- Main Card -->
+<div class="p-card p-m-3" *ngIf="user">
+  <div class="p-card-header">
+    <h4>User Details</h4>
+  </div>
+  <div class="p-card-body">
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Mobile:</strong> {{ user.mobile }}</p>
+    <p><strong>DOB:</strong> {{ user.dob | date: 'dd/MM/yyyy' }}</p>
+  </div>
+</div>
+
+<!-- Portfolio Dialog -->
+<p-dialog header="Your Portfolio" [(visible)]="showPortfolio" [modal]="true" [style]="{width: '50vw'}">
+<p-dropdown [options]="tenures" [(ngModel)]="selectedTenure" (onChange)="loadPortfolioData(selectedTenure)"></p-dropdown>
+  <kendo-chart>
+    <kendo-chart-category-axis>
+      <kendo-chart-category-axis-item [categories]="categoryDates">
+      </kendo-chart-category-axis-item>
+    </kendo-chart-category-axis>
+    <kendo-chart-series>
+      <kendo-chart-series-item
+        [data]="portfolioValues"
+        type="line"
+        name="Portfolio Value">
+      </kendo-chart-series-item>
+    </kendo-chart-series>
+  </kendo-chart>
+</p-dialog>
