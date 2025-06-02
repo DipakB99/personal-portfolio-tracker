@@ -9,7 +9,7 @@
 
   <ng-template pTemplate="end">
     <div class="header-end">
-      <p-avatar [image]="'http://localhost:5000/uploads/' + user?.profileImage" shape="circle" size="large"
+      <p-avatar [image]="profileImageApiUrl + user?.profileImage || 'default-image.jpg'" shape="circle" size="large"
         class="avatar"></p-avatar>
 
       <span class="user-name">{{ user?.firstName }} {{ user?.lastName?.charAt(0) }}.</span>

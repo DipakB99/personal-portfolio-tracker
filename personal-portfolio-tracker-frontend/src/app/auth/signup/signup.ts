@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -67,7 +68,7 @@ export class Signup {
     });
     formData.append('profileImage', this.selectedFile!);
 
-    this.http.post('http://localhost:5000/api/signup', formData).subscribe({
+    this.http.post(`${environment.apiUrl}/signup`, formData).subscribe({
       next: (res) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Signup successful!' });
         this.signupForm.reset();

@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { MenubarModule } from 'primeng/menubar';
 import { AvatarModule } from 'primeng/avatar';
 import { MenuItem } from 'primeng/api';
+import { environment } from '../../environments/environment';
 
 interface PortfolioPoint {
   date: string;
@@ -40,8 +41,11 @@ export class Dashboard implements OnInit {
     { label: 'Dashboard', icon: 'pi pi-home', routerLink: ['/dashboard'] },
     { label: 'Settings', icon: 'pi pi-cog', routerLink: ['/settings'] }
   ];
+  profileImageApiUrl: string;
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient) {
+    this.profileImageApiUrl = `${environment.apiUrl}/uploads/`;
+  }
 
   ngOnInit() {
     const token = localStorage.getItem('token');
@@ -51,7 +55,7 @@ export class Dashboard implements OnInit {
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    this.http.get<any>('http://localhost:5000/api/dashboard', { headers }).subscribe({
+    this.http.get<any>(`${environment.apiUrl}/dashboard`, { headers }).subscribe({
       next: (res) => {
         this.user = res.user;
       },
@@ -71,7 +75,7 @@ export class Dashboard implements OnInit {
   }
 
   loadPortfolioData(tenure: string) {
-    this.http.get<PortfolioPoint[]>(`http://localhost:5000/api/chart/portfolio?tenure=${tenure}`)
+    this.http.get<PortfolioPoint[]>(`${environment.apiUrl}/chart/portfolio?tenure=${tenure}`)
       .subscribe(data => {
         this.portfolioData = data;
         this.categoryDates = this.portfolioData.map(d => d.date);

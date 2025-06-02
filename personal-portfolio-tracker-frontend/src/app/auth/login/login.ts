@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,7 @@ export class Login  {
   onSubmit() {
     if (this.loginForm.invalid) return;
 
-    this.http.post<any>('http://localhost:5000/api/login', this.loginForm.value).subscribe({
+    this.http.post<any>(`${environment.apiUrl}/login`, this.loginForm.value).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login successful.' });
