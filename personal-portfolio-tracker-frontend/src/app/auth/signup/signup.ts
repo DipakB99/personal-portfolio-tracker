@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../environments/environment';
+import { Router, RouterModule } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { environment } from '../../../environments/environment';
     InputTextModule,
     ButtonModule,
     DatePickerModule,
-    CommonModule, ToastModule
+    CommonModule, ToastModule, RouterModule
  ],
   templateUrl: './signup.html',
   styleUrl: './signup.scss',
@@ -32,7 +33,7 @@ export class Signup {
   maxDate: Date;
   selectedFile: File | null = null;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private messageService: MessageService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private messageService: MessageService, private router: Router) {
     this.maxDate = new Date();
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 18); // User must be at least 18
 
@@ -57,10 +58,10 @@ export class Signup {
   }
 
   onSubmit() {
-    // if (!this.signupForm.valid || !this.selectedFile) {
-    // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Form is invalid or no image selected.' });
-    //   return;
-    // }
+    if (!this.signupForm.valid || !this.selectedFile) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Form is invalid or no image selected.' });
+      return;
+    }
 
     const formData = new FormData();
     Object.entries(this.signupForm.value).forEach(([key, value]) => {
@@ -70,20 +71,15 @@ export class Signup {
 
     this.http.post(`${environment.apiUrl}/signup`, formData).subscribe({
       next: (res) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Signup successful!' });
+        this.messageService.add({ severity: 'success', summary: 'Error', detail: 'Signup successful!' });
+        this.router.navigate(['/login'])
         this.signupForm.reset();
       },
       error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Signup failed. See console.' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Signup failed.' });
         console.error(err);
       },
     });
   }
-
-  isInvalid(controlName: string): boolean {
-  const control = this.signupForm.get(controlName);
-  return !!(control && (control.touched || control.dirty) && control.invalid);
-}
-
 
 }

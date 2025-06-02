@@ -44,7 +44,7 @@ export class Dashboard implements OnInit {
   profileImageApiUrl: string;
 
   constructor(private router: Router, private http: HttpClient) {
-    this.profileImageApiUrl = `${environment.apiUrl}/uploads/`;
+    this.profileImageApiUrl = `https://personal-portfolio-tracker-backend.onrender.com/uploads/`;
   }
 
   ngOnInit() {

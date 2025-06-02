@@ -11,56 +11,50 @@
       <div class="m-top p-field p-col-12 p-md-6">
         <label for="firstName">First Name</label>
         <input id="firstName" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('firstName')?.touched && signupForm.get('firstName')?.invalid }"
-        pInputText formControlName="firstName" />
+        pInputText formControlName="firstName" placeholder="Enter First Name"/>
       </div>
 
       <div class="m-top p-field p-col-12 p-md-6">
         <label for="lastName">Last Name</label>
-        <input id="lastName" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('lastName')?.touched && signupForm.get('lastName')?.invalid }" pInputText formControlName="lastName" />
+        <input id="lastName" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('lastName')?.touched && signupForm.get('lastName')?.invalid }" pInputText formControlName="lastName" placeholder="Enter Last Name" />
       </div>
 
       <div class="m-top p-field p-col-12">
         <label for="email">Email</label>
-        <input id="email" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('email')?.touched && signupForm.get('email')?.invalid }" pInputText formControlName="email" />
+        <input id="email" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('email')?.touched && signupForm.get('email')?.invalid }" pInputText formControlName="email" placeholder="Enter Email"/>
       </div>
 
       <div class="m-top p-field p-col-12">
         <label for="password">Password</label>
-        <input id="password" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('password')?.touched && signupForm.get('password')?.invalid }" type="password" pInputText formControlName="password" />
+        <input id="password" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('password')?.touched && signupForm.get('password')?.invalid }" type="password" pInputText formControlName="password" placeholder="Enter Password"/>
       </div>
 
       <div class="m-top p-field p-col-12">
         <label for="mobile">Mobile</label>
-        <input id="mobile" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('mobile')?.touched && signupForm.get('mobile')?.invalid }" pInputText formControlName="mobile" />
+        <input id="mobile" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('mobile')?.touched && signupForm.get('mobile')?.invalid }" pInputText formControlName="mobile" placeholder="Enter Mobile No."/>
       </div>
 
       <div class="m-top p-field p-col-12">
         <label for="dob">Date of Birth</label> &nbsp;
-        <p-datePicker
-          [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('dob')?.touched && signupForm.get('dob')?.invalid }"
-          id="dob"
-          formControlName="dob"
-          dateFormat="yy-mm-dd"
-          [maxDate]="maxDate"
-        ></p-datePicker>  &nbsp;
-        <span>*(18 yo or above)</span>
-
+        <p-datePicker [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('dob')?.touched && signupForm.get('dob')?.invalid }" id="dob" formControlName="dob" dateFormat="yy-mm-dd" [maxDate]="maxDate" placeholder="Enter Age, 18 yo or above"></p-datePicker>
       </div>
 
       <div class="m-top p-field p-col-12">
         <label for="profileImage">Profile Image</label>
-        <input type="file" id="profileImage" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('file')?.touched && signupForm.get('file')?.invalid }" (change)="onFileChange($event)" />
+        <input type="file" id="profileImage" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('file')?.touched && signupForm.get('file')?.invalid }" (change)="onFileChange($event)" placeholder="Upload Image"/>
       </div>
 
       <div class="m-top p-field p-col-12">
-        <button
-          type="submit"
-          pButton
-          label="Sign Up"
-          class="p-button-rounded"
-          [disabled]="signupForm.invalid"
-        ></button>
+        <button type="submit" pButton label="Sign Up" class="p-button-rounded" [disabled]="signupForm.invalid"></button>
       </div>
+
+      
+      <div class="p-field p-col-12" style="margin-top: 1rem;">
+        <span>Already a member, please 
+          <span routerLink="/login" style="color: #007bff; text-decoration: underline; cursor: pointer;">login</span>.
+        </span>
+      </div>
+
     </form>
   </div>
 </div>

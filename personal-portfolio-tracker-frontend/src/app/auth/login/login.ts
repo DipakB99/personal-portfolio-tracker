@@ -3,14 +3,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
-  imports: [ToastModule, InputTextModule, ButtonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [ToastModule, InputTextModule, ButtonModule, ReactiveFormsModule, HttpClientModule, RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   providers: [MessageService],
