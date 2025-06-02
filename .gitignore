@@ -1,10 +1,13 @@
 # Global ignores
 node_modules
 dist
-.env
+# .env
 .DS_Store
 
 # Frontend & Backend specific
 personal-portfolio-tracker-backend/node_modules
 personal-portfolio-tracker-frontend/node_modules
 personal-portfolio-tracker-frontend/.angular/cache
+
+# Local Netlify folder
+.netlify

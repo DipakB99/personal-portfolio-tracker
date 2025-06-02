@@ -16,6 +16,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -29,15 +31,9 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log('MongoDB Connected'))
 .catch((err) => console.error('MongoDB Connection Failed:', err));
 
-// Routes
-app.get('/', (req, res) => {
-  res.send('API is running...');
-});
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+app.get('/', (req, res) => res.send('Server is working'));
+app.listen(PORT, () => console.log(`Server on port ${PORT}`));
 
 const authRoutes = require('./routes/auth');
 app.use('/api', authRoutes);
