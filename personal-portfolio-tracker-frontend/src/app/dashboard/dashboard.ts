@@ -10,21 +10,24 @@ import { ChartsModule } from '@progress/kendo-angular-charts';
 import { FormsModule } from '@angular/forms';
 import { MenubarModule } from 'primeng/menubar';
 import { AvatarModule } from 'primeng/avatar';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { environment } from '../../environments/environment';
+import { ApiService } from '../../shared/services/api';
+import { UserInfoCard } from '../../shared/dumb-components/user-info-card/user-info-card';
+import { PortfolioAllocationChartComponent } from './portfolio-allocation-chart/portfolio-allocation-chart';
+import { DataCard } from "../../shared/dumb-components/data-card/data-card";
+import dashbaordCradsData  from '../../shared/data-files/dashboardCardsData.json';
 
 interface PortfolioPoint {
   date: string;
   value: number;
 }
 
-
 @Component({
   selector: 'app-dashboard',
   imports: [CardModule, CommonModule, ButtonModule, HttpClientModule, DialogModule, DropdownModule, ChartsModule, FormsModule,
-    MenubarModule,
-    AvatarModule,
-   ],
+    MenubarModule, AvatarModule, UserInfoCard, PortfolioAllocationChartComponent, DataCard],
+  providers: [ApiService, MessageService],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })
@@ -39,48 +42,33 @@ export class Dashboard implements OnInit {
   portfolioValues: number[] = [];
   menuItems: MenuItem[] = [
     { label: 'Dashboard', icon: 'pi pi-home', routerLink: ['/dashboard'] },
+    { label: 'View Portfolio', icon: 'pi pi-cog', command: (event) => this.showPortfolio = true },
     { label: 'Settings', icon: 'pi pi-cog', routerLink: ['/settings'] }
   ];
   profileImageApiUrl: string;
+  dashboardCards: any[] = dashbaordCradsData;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, private apiService: ApiService, private messageService: MessageService) {
     this.profileImageApiUrl = `https://personal-portfolio-tracker-backend.onrender.com/uploads/`;
   }
 
   ngOnInit() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    this.http.get<any>(`${environment.apiUrl}/dashboard`, { headers }).subscribe({
+    this.apiService.getDashboardData().subscribe({
       next: (res) => {
         this.user = res.user;
       },
       error: () => {
         alert('Session expired. Please login again.');
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Session expired, please login again.' });
         localStorage.removeItem('token');
         this.router.navigate(['/login']);
       },
     });
     
-    this.loadPortfolioData(this.selectedTenure);
   }
 
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
-
-  loadPortfolioData(tenure: string) {
-    this.http.get<PortfolioPoint[]>(`${environment.apiUrl}/chart/portfolio?tenure=${tenure}`)
-      .subscribe(data => {
-        this.portfolioData = data;
-        this.categoryDates = this.portfolioData.map(d => d.date);
-        this.portfolioValues = this.portfolioData.map(d => d.value);
-      });
-  }
-
 }

@@ -56,5 +56,29 @@ body {
 }
 
 .main-info-card{
-    margin-top: 10rem;
+    margin-top: 5rem;
+}
+
+.dashboard-cards {
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: space-between;
+
+  app-data-card {
+    // flex: 1 1 calc(25% - 1rem);
+    // max-width: calc(25% - 1rem);
+
+    @media (max-width: 1024px) {
+      flex: 1 1 calc(50% - 1rem);
+      max-width: calc(50% - 1rem);
+    }
+
+    @media (max-width: 600px) {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+  }
 }

@@ -1,0 +1,63 @@
+<div class="adv-container">
+    <div class="adv-summary">
+        <h4>AGGREGATE ADV:</h4>
+        <h2> ₹ {{ equitySeries[equitySeries.length - 1] + debtSeries[debtSeries.length - 1] + commoditySeries[commoditySeries.length - 1] | number: '1.2-2' }} Cr.</h2>
+        <p *ngIf="categories.length">as on {{ categories[categories.length - 1] }}</p>
+
+        <ul>
+            <li><span class="dot equity"></span> Equity: ₹ {{ equitySeries[equitySeries.length - 1] | number: '1.2-2' }}Cr.</li>
+            <li><span class="dot debt"></span> Debt: ₹ {{ debtSeries[debtSeries.length - 1] | number: '1.2-2' }} Cr.</li>
+            <li><span class="dot commodity"></span> Commodity: ₹ {{ commoditySeries[commoditySeries.length - 1] |number: '1.2-2' }} Cr.</li>
+        </ul>
+    </div>
+
+    <div class="adv-graph">
+        <div class="time-buttons">
+            <button *ngFor="let option of tenureOptions" [class.selected]="selectedTenure === option"
+                (click)="loadPortfolioData(option)">
+                {{ option }}
+            </button>
+        </div>
+
+        <kendo-chart [tooltip]="{ visible: false }">
+              <!-- <kendo-chart-tooltip>
+                <ng-template kendoChartSeriesTooltipTemplate let-category="category" let-point="point">
+                <div class="tooltip-box">
+                    <div class="tooltip-header">AGGREGATE ADV</div>
+                    <div class="tooltip-date">{{ category | date: 'dd-MMM-yy' }}</div>
+
+                    <div class="tooltip-value">
+                    ₹ {{
+                        equitySeries[point.index] + debtSeries[point.index] + commoditySeries[point.index]
+                    | number: '1.2-2' }} Cr.
+                    </div>
+
+                    <div class="tooltip-breakdown">
+                    <div><span class="dot equity"></span> Equity: ₹ {{ equitySeries[point.index] | number: '1.2-2' }} Cr.</div>
+                    <div><span class="dot debt"></span> Debt: ₹ {{ debtSeries[point.index] | number: '1.2-2' }} Cr.</div>
+                    <div><span class="dot commodity"></span> Commodity: ₹ {{ commoditySeries[point.index] | number: '1.2-2' }} Cr.</div>
+                    </div>
+                </div>
+                </ng-template>
+            </kendo-chart-tooltip> -->
+
+            <kendo-chart-series>
+                <kendo-chart-series-item [name]="'Equity'" [data]="equitySeries" type="area"
+                    [stack]="true"></kendo-chart-series-item>
+                <kendo-chart-series-item [name]="'Debt'" [data]="debtSeries" type="area"
+                    [stack]="true"></kendo-chart-series-item>
+                <kendo-chart-series-item [name]="'Commodity'" [data]="commoditySeries" type="area"
+                    [stack]="true"></kendo-chart-series-item>
+            </kendo-chart-series>
+
+            <kendo-chart-category-axis>
+                <kendo-chart-category-axis-item [categories]="categories" [baseUnit]="'fit'">
+                </kendo-chart-category-axis-item>
+            </kendo-chart-category-axis>
+
+            <kendo-chart-value-axis>
+                <kendo-chart-value-axis-item [min]="0"></kendo-chart-value-axis-item>
+            </kendo-chart-value-axis>
+        </kendo-chart>
+    </div>
+</div>

@@ -12,6 +12,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../environments/environment';
 import { Router, RouterModule } from '@angular/router';
+import { ApiService } from '../../../shared/services/api';
 
 
 @Component({
@@ -25,15 +26,16 @@ import { Router, RouterModule } from '@angular/router';
  ],
   templateUrl: './signup.html',
   styleUrl: './signup.scss',
-  providers: [MessageService],
+  providers: [MessageService, ApiService],
 
 })
 export class Signup {
   signupForm: FormGroup;
   maxDate: Date;
   selectedFile: File | null = null;
+  showPassword: boolean = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private messageService: MessageService, private router: Router) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private messageService: MessageService, private router: Router, private apiService: ApiService) {
     this.maxDate = new Date();
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 18); // User must be at least 18
 
@@ -48,6 +50,7 @@ export class Signup {
   }
 
   onFileChange(event: any) {
+    console.log('heyyyyyyyyyyyy',this.signupForm.valid)
     const file = event.target.files[0];
     if (file && file.type.startsWith('image/')) {
       this.selectedFile = file;
@@ -69,9 +72,9 @@ export class Signup {
     });
     formData.append('profileImage', this.selectedFile!);
 
-    this.http.post(`${environment.apiUrl}/signup`, formData).subscribe({
+    this.apiService.signup(formData).subscribe({
       next: (res) => {
-        this.messageService.add({ severity: 'success', summary: 'Error', detail: 'Signup successful!' });
+        this.messageService.add({ severity: 'success', summary: 'Signup successful!', detail: res });
         this.router.navigate(['/login'])
         this.signupForm.reset();
       },
@@ -80,6 +83,51 @@ export class Signup {
         console.error(err);
       },
     });
+  }
+
+  getFieldLabel(field: string): string {
+    const labels: { [key: string]: string } = {
+      firstName: 'First name',
+      lastName: 'Last name',
+      email: 'Email',
+      password: 'Password',
+      mobile: 'Mobile number',
+      dob: 'Date of birth',
+    };
+    return labels[field] || field;
+  }
+
+  getErrorMessage(fieldName: string): string {
+    const control = this.signupForm.get(fieldName);
+
+    if (control && control.touched && control.errors) {
+      if (control.errors['required']) {
+        return `${this.getFieldLabel(fieldName)} is required`;
+      }
+
+      if (control.errors['pattern']) {
+        if (fieldName === 'firstName' || fieldName === 'lastName') {
+          return `${this.getFieldLabel(fieldName)} is invalid, containing numbers`;
+        }
+        if (fieldName === 'mobile') {
+          return 'Mobile number must contain digits only';
+        }
+      }
+
+      if (control.errors['email']) {
+        return 'Invalid email format';
+      }
+
+      if (control.errors['minlength']) {
+        const requiredLength = control.errors['minlength'].requiredLength;
+        return `${this.getFieldLabel(fieldName)} must be at least ${requiredLength} characters`;
+      }
+    }
+    return '';
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
   }
 
 }

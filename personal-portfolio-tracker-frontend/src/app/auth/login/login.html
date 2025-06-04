@@ -6,11 +6,13 @@
       <div class="p-field p-col-12" style="margin-top: 1rem;">
         <label for="email">Email</label>
         <input id="email" pInputText formControlName="email" placeholder="Enter your email" />
+        <div class="error-msg" *ngIf="getErrorMessage('email')">{{ getErrorMessage('email') }}</div>
       </div>
 
       <div class="p-field p-col-12" style="margin-top: 1rem;">
         <label for="password">Password</label>
         <input id="password" type="password" pInputText formControlName="password" placeholder="Enter your password" />
+        <div class="error-msg" *ngIf="getErrorMessage('password')">{{ getErrorMessage('password') }}</div>
       </div>
 
       <div class="p-field p-col-12">

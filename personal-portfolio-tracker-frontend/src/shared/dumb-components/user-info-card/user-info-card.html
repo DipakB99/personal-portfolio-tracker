@@ -1,0 +1,11 @@
+<div class="p-card main-info-card" *ngIf="user">
+  <div class="p-card-header">
+    <h4>My Details</h4>
+  </div>
+  <div class="p-card-body">
+    <p><strong>Name:</strong> {{ user.firstName + ' ' + user?.lastName }} </p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Mobile:</strong> {{ user.mobile }}</p>
+    <p><strong>DOB:</strong> {{ user.dob | date: 'dd/MM/yyyy' }}</p>
+  </div>
+</div>

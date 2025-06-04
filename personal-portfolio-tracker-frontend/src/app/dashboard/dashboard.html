@@ -13,40 +13,20 @@
         class="avatar"></p-avatar>
 
       <span class="user-name">{{ user?.firstName }} {{ user?.lastName?.charAt(0) }}.</span>
-
       <button pButton class="p-button-sm p-button-danger" label="Logout" (click)="logout()"></button>
-
-      <button pButton label="View Portfolio" class="p-button-sm p-button-info" (click)="showPortfolio = true"></button>
     </div>
   </ng-template>
 </p-menubar>
 
 
-<!-- Main Card -->
-<div class="p-card main-info-card" *ngIf="user">
-  <div class="p-card-header">
-    <h4>User Details</h4>
-  </div>
-  <div class="p-card-body">
-    <p><strong>Name:</strong> {{ user.firstName + ' ' + user?.lastName }} </p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    <p><strong>Mobile:</strong> {{ user.mobile }}</p>
-    <p><strong>DOB:</strong> {{ user.dob | date: 'dd/MM/yyyy' }}</p>
-  </div>
+<app-user-info-card [user]='user'></app-user-info-card>
+
+<div class="dashboard-cards">
+  <app-data-card *ngFor="let card of dashboardCards" [card]="card"></app-data-card>
 </div>
 
+<!-- <app-portfolio-allocation-chart></app-portfolio-allocation-chart> -->
 <!-- Portfolio Dialog -->
-<p-dialog header="Your Portfolio" [(visible)]="showPortfolio" [modal]="true" [style]="{width: '50vw', height: '60vh'}">
-  <p-dropdown [options]="tenures" [(ngModel)]="selectedTenure"
-    (onChange)="loadPortfolioData(selectedTenure)"></p-dropdown>
-  <kendo-chart>
-    <kendo-chart-category-axis>
-      <kendo-chart-category-axis-item [categories]="categoryDates">
-      </kendo-chart-category-axis-item>
-    </kendo-chart-category-axis>
-    <kendo-chart-series>
-      <kendo-chart-series-item [data]="portfolioValues" type="line" name="Portfolio Value">
-      </kendo-chart-series-item>
-    </kendo-chart-series>
-  </kendo-chart>
+<p-dialog header="My Portfolio" [(visible)]="showPortfolio" [modal]="true" [style]="{width: '80vw', height: '60vh'}">
+  <app-portfolio-allocation-chart></app-portfolio-allocation-chart>
 </p-dialog>

@@ -1,0 +1,145 @@
+.adv-container {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: 'Inter', sans-serif;
+  color: #807f7f;
+
+  .adv-summary {
+    flex: 1;
+    min-width: 250px;
+    padding: 1rem;
+
+    h4 {
+      color: #5673c4;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: #3659b7;
+      margin: 0;
+    }
+
+    p {
+      color: #7e8084;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 0.4rem;
+        font-size: 0.95rem;
+      }
+
+      .dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 8px;
+        vertical-align: middle;
+      }
+
+      .equity { background-color: #1e3a8a; }
+      .debt { background-color: #facc15; }
+      .commodity { background-color: #93c5fd; }
+    }
+  }
+
+  .adv-graph {
+    flex: 3;
+    padding: 1rem;
+    min-width: 300px;
+
+    .time-buttons {
+      margin-bottom: 1rem;
+
+      button {
+        background: #2c2f36;
+        border: none;
+        padding: 0.5rem 1rem;
+        margin-right: 0.5rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        color: #f3f4f6;
+
+        &.selected {
+          background: #0f172a;
+          color: #fff;
+        }
+
+        &:hover {
+          background: #3a3f47;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .tooltip-box {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 220px;
+
+  .tooltip-header {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .tooltip-date {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 8px;
+  }
+
+  .tooltip-value {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  .tooltip-breakdown {
+    font-size: 12px;
+
+    div {
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+
+    .equity {
+      background-color: #1e3a8a;
+    }
+
+    .debt {
+      background-color: #facc15;
+    }
+
+    .commodity {
+      background-color: #93c5fd;
+    }
+  }
+}
+
+::ng-deep .k-chart-tooltip {
+  z-index: 9999 !important;
+}

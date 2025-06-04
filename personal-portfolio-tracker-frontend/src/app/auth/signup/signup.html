@@ -9,38 +9,47 @@
       class="p-fluid p-formgrid p-grid"
     >
       <div class="m-top p-field p-col-12 p-md-6">
-        <label for="firstName">First Name</label>
+        <label for="firstName">First Name<span class="required-star">*</span></label>
         <input id="firstName" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('firstName')?.touched && signupForm.get('firstName')?.invalid }"
         pInputText formControlName="firstName" placeholder="Enter First Name"/>
+        <div class="error-msg" *ngIf="getErrorMessage('firstName')">{{ getErrorMessage('firstName') }}</div>
       </div>
 
       <div class="m-top p-field p-col-12 p-md-6">
-        <label for="lastName">Last Name</label>
+        <label for="lastName">Last Name<span class="required-star">*</span></label>
         <input id="lastName" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('lastName')?.touched && signupForm.get('lastName')?.invalid }" pInputText formControlName="lastName" placeholder="Enter Last Name" />
+        <div class="error-msg" *ngIf="getErrorMessage('lastName')">{{ getErrorMessage('lastName') }}</div>
       </div>
 
       <div class="m-top p-field p-col-12">
-        <label for="email">Email</label>
+        <label for="email">Email<span class="required-star">*</span></label>
         <input id="email" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('email')?.touched && signupForm.get('email')?.invalid }" pInputText formControlName="email" placeholder="Enter Email"/>
+        <div class="error-msg" *ngIf="getErrorMessage('email')">{{ getErrorMessage('email') }}</div>
+      </div>
+
+      <div class="m-top">
+        <label for="password">Password<span class="required-star">*</span></label>
+        <input id="password" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('password')?.touched && signupForm.get('password')?.invalid }" [type]="showPassword ? 'text' : 'password'" pInputText formControlName="password" placeholder="Enter Password"/>
+        <div class="error-msg" *ngIf="getErrorMessage('password')">{{ getErrorMessage('password') }}</div>
+        <!-- <span class="p-inputgroup-addon" style="cursor: pointer;" (click)="togglePassword()">
+          <i class="pi" [ngClass]="showPassword ? 'pi-eye-slash' : 'pi-eye'"></i>
+        </span> -->
       </div>
 
       <div class="m-top p-field p-col-12">
-        <label for="password">Password</label>
-        <input id="password" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('password')?.touched && signupForm.get('password')?.invalid }" type="password" pInputText formControlName="password" placeholder="Enter Password"/>
-      </div>
-
-      <div class="m-top p-field p-col-12">
-        <label for="mobile">Mobile</label>
+        <label for="mobile">Mobile<span class="required-star">*</span></label>
         <input id="mobile" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('mobile')?.touched && signupForm.get('mobile')?.invalid }" pInputText formControlName="mobile" placeholder="Enter Mobile No."/>
+        <div class="error-msg" *ngIf="getErrorMessage('mobile')">{{ getErrorMessage('mobile') }}</div>
       </div>
 
       <div class="m-top p-field p-col-12">
-        <label for="dob">Date of Birth</label> &nbsp;
+        <label for="dob">Date of Birth<span class="required-star">*</span></label> &nbsp;
         <p-datePicker [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('dob')?.touched && signupForm.get('dob')?.invalid }" id="dob" formControlName="dob" dateFormat="yy-mm-dd" [maxDate]="maxDate" placeholder="Enter Age, 18 yo or above"></p-datePicker>
+        <div class="error-msg" *ngIf="getErrorMessage('dob')">{{ getErrorMessage('dob') }}</div>
       </div>
 
       <div class="m-top p-field p-col-12">
-        <label for="profileImage">Profile Image</label>
+        <label for="profileImage">Profile Image<span class="required-star">*</span></label>
         <input type="file" id="profileImage" [ngClass]="{ 'ng-invalid ng-dirty': signupForm.get('file')?.touched && signupForm.get('file')?.invalid }" (change)="onFileChange($event)" placeholder="Upload Image"/>
       </div>
 

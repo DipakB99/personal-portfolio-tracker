@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Total Portfolio Value",
+    "value": "₹ 1.72 Cr",
+    "change": "+3.8%",
+    "changeDirection": "up",
+    "icon": "pi pi-wallet",
+    "bgColor": "#1a1a2e"
+  },
+  {
+    "title": "Today's Gain/Loss",
+    "value": "₹ -28,450",
+    "change": "+1.9%",
+    "changeDirection": "down",
+    "icon": "pi pi-chart-line",
+    "bgColor": "#1f2a40"
+  },
+  {
+    "title": "Cash Available",
+    "value": "₹ 1,20,000",
+    "change": "Stable",
+    "changeDirection": "neutral",
+    "icon": "pi pi-dollar",
+    "bgColor": "#2c2f36"
+  },
+  {
+    "title": "Invested in Equity",
+    "value": "₹ 8,30,250",
+    "change": "+2.1%",
+    "changeDirection": "up",
+    "icon": "pi pi-briefcase",
+    "bgColor": "#23283b"
+  },
+  {
+    "title": "Invested in Commodities",
+    "value": "₹ 65,30,250",
+    "change": "+5.1%",
+    "changeDirection": "up",
+    "icon": "pi pi-briefcase",
+    "bgColor": "#23283e"
+  }
+]

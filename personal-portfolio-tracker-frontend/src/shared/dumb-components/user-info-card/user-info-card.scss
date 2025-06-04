@@ -1,0 +1,38 @@
+.main-info-card{
+    margin-top: 5rem;
+}
+.main-info-card {
+  border-radius: 8px;
+  padding: 1.5rem;
+  background-color: #1e1e2f; /* dark background */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #f0f0f0;
+  cursor: default;
+}
+
+.main-info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8);
+}
+
+.p-card-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 1rem;
+}
+
+.p-card-header h4 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #ffffff;
+}
+
+.p-card-body p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+}
+
+.p-card-body strong {
+  color: #ffffff;
+}

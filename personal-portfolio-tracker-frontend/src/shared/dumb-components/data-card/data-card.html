@@ -1,0 +1,22 @@
+<div class="dashboard-card" [style.background]="card.bgColor">
+  <!-- <div class="card-icon">
+    <i [class]="card.icon"></i>
+  </div> -->
+
+  <div class="card-content">
+    <p class="card-title">{{ card.title }}</p>
+    <h2 class="card-value">{{ card.value }}</h2>
+    <p
+      class="card-change"
+      [ngClass]="{
+        'up': card.changeDirection === 'up',
+        'down': card.changeDirection === 'down',
+        'neutral': card.changeDirection === 'neutral'
+      }"
+    >
+      {{ card.change }}
+    </p>
+  </div>
+
+  <button class="view-button">View</button>
+</div>
